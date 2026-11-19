@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 产品经理作品集 · 离散制造 MES 平台</title>
+<style>
+  :root{
+    --purple:#7C3AED;--purple-d:#5B21B6;--purple-soft:#EDE4FF;
+    --blue:#2563EB;--blue-d:#1D4ED8;--blue-soft:#E0EBFF;
+    --teal:#0D9488;--teal-soft:#CCFBF1;
+    --amber:#D97706;--amber-soft:#FEF3C7;
+    --rose:#E11D48;--rose-soft:#FFE4E6;
+    --green:#059669;--green-soft:#D1FAE5;
+    --gray:#6B7280;--gray-soft:#F3F4F6;
+    --ink:#1F2430;--muted:#667085;--line:#E5E7EB;--bg:#F7F7FB;--card:#FFFFFF;
+    --shadow:0 6px 24px rgba(124,58,237,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  /* Hero */
+  .hero{background:linear-gradient(135deg,#7C3AED 0%,#5B21B6 45%,#2563EB 100%);color:#fff;padding:52px 0 46px;position:relative;overflow:hidden}
+  .hero:after{content:"";position:absolute;right:-80px;top:-120px;width:340px;height:340px;border-radius:50%;
+    background:rgba(255,255,255,.08)}
+  .hero .wrap{position:relative;z-index:1}
+  .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);
+    font-size:12px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:999px;margin-bottom:16px}
+  .hero h1{font-size:34px;line-height:1.25;margin-bottom:10px;letter-spacing:-.5px}
+  .hero .sub{font-size:16px;opacity:.92;max-width:760px}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .demo-cta{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--purple-d);font-weight:800;
+    font-size:14px;padding:11px 20px;border-radius:11px;box-shadow:0 8px 22px rgba(15,23,42,.18);transition:.15s}
+  .demo-cta:hover{transform:translateY(-2px)}
+  .demo-cta .arw{font-size:17px}
+  .hero-note{display:inline-flex;align-items:center;font-size:12px;opacity:.9;background:rgba(255,255,255,.13);
+    border:1px solid rgba(255,255,255,.24);padding:10px 14px;border-radius:11px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .legend span{font-size:11px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+    padding:4px 10px;border-radius:999px}
+
+  /* Nav */
+  nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  nav .wrap::-webkit-scrollbar{display:none}
+  nav a{white-space:nowrap;font-size:13px;font-weight:600;color:var(--muted);padding:13px 14px;border-bottom:2px solid transparent}
+  nav a:hover{color:var(--purple);border-bottom-color:var(--purple)}
+
+  /* Sections */
+  section{padding:38px 0 6px;scroll-margin-top:56px}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .sec-no{width:34px;height:34px;flex:0 0 34px;border-radius:10px;background:var(--purple-soft);color:var(--purple);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+  .sec-head h2{font-size:21px;letter-spacing:-.3px}
+  .sec-head .en{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);
+    padding:20px 22px;margin-bottom:14px}
+  .h3{font-size:15px;font-weight:800;color:var(--purple-d);margin:4px 0 10px;display:flex;align-items:center;gap:8px}
+  .h3:before{content:"";width:4px;height:15px;border-radius:2px;background:var(--purple)}
+  .p{font-size:14px;color:#374151;margin-bottom:8px;word-break:break-word}
+  .p:last-child{margin-bottom:0}
+
+  /* Evidence chips (auto from [xxx]) */
+  .ev{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:5px;vertical-align:middle;margin:0 1px}
+  .ev-real{background:var(--green-soft);color:#047857}
+  .ev-sim{background:var(--blue-soft);color:var(--blue-d)}
+  .ev-est{background:var(--amber-soft);color:#B45309}
+  .ev-hyp{background:var(--gray-soft);color:#4B5563}
+
+  /* Table */
+  .tbl-wrap{overflow-x:auto;margin:6px 0 4px;border:1px solid var(--line);border-radius:10px}
+  table{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--purple-soft);color:var(--purple-d);font-weight:700;white-space:nowrap}
+  tr:last-child td{border-bottom:0}
+  tr:nth-child(even) td{background:#FBFAFE}
+
+  /* Cards row */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:6px 0}
+  .mini{border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:10px;padding:13px 14px;background:#fff}
+  .mini.purple{border-left-color:var(--purple)} .mini.teal{border-left-color:var(--teal)}
+  .mini.amber{border-left-color:var(--amber)} .mini.rose{border-left-color:var(--rose)}
+  .mini .tag{display:inline-block;font-size:10px;font-weight:700;color:var(--muted);background:var(--gray-soft);
+    padding:2px 7px;border-radius:5px;margin-bottom:6px}
+  .mini .t{font-weight:800;font-size:14px;margin-bottom:4px}
+  .mini .b{font-size:12.5px;color:#4B5563}
+
+  /* KV */
+  .kv{display:grid;grid-template-columns:130px 1fr;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .kv .k,.kv .v{padding:9px 12px;font-size:13px;border-bottom:1px solid var(--line)}
+  .kv .k{background:#FAFAFC;font-weight:700;color:var(--muted)}
+  .kv .v{color:#374151}
+  .kv .k:last-of-type,.kv .v:last-of-type{border-bottom:0}
+
+  /* Callout */
+  .callout{border-radius:10px;padding:12px 14px;font-size:13px;margin:6px 0;border-left:4px solid var(--blue);background:var(--blue-soft);color:var(--blue-d)}
+  .callout.warn{border-left-color:var(--amber);background:var(--amber-soft);color:#92400E}
+
+  /* Score strip */
+  .score-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:8px 0}
+  .score{border:1px solid var(--line);border-radius:11px;padding:12px 14px;background:#fff}
+  .score .q{font-size:12px;color:var(--muted);font-weight:700}
+  .score .v{font-size:24px;font-weight:800;color:var(--purple);margin:2px 0}
+  .score .v small{font-size:12px;color:var(--muted);font-weight:600}
+  .score .g{font-size:11.5px;color:#4B5563}
+
+  /* Details */
+  details{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:#fff}
+  details summary{cursor:pointer;padding:11px 14px;font-weight:700;font-size:14px;color:var(--ink);list-style:none;
+    display:flex;align-items:center;gap:9px}
+  details summary::-webkit-details-marker{display:none}
+  details summary:before{content:"+";color:var(--purple);font-weight:800;font-size:17px;width:16px}
+  details[open] summary:before{content:"−"}
+  details .dbody{padding:0 14px 14px 39px}
+
+  /* ===== Map (scoped) ===== */
+  .map{font-size:13px}
+  .map .m-legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .map .m-legend span{font-size:11px;color:#374151;background:#fff;border:1px solid var(--line);
+    border-radius:999px;padding:4px 10px;display:inline-flex;align-items:center;gap:6px}
+  .map .m-legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .map .m-panel{background:#FAFAFC;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
+  .map .m-title{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px;letter-spacing:.3px}
+  .map .m-flow{display:flex;align-items:stretch;overflow-x:auto}
+  .map .m-zone{flex:1;min-width:130px;display:flex;flex-direction:column}
+  .map .m-zh{color:#fff;text-align:center;font-size:12.5px;font-weight:700;padding:8px 4px;border-radius:8px 8px 0 0}
+  .map .m-zb{background:#fff;border:1px solid var(--line);border-top:0;border-radius:0 0 8px 8px;
+    padding:10px 8px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .map .m-node{background:#fff;border:1px solid var(--line);border-left-width:4px;border-radius:7px;
+    padding:8px 9px;font-size:12px;white-space:pre-line}
+  .map .m-chip{display:inline-block;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin-bottom:4px}
+  .map .m-arrow{flex:0 0 22px;display:flex;align-items:center;justify-content:center}
+  .map .m-arrow:before{content:"";width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:9px solid #9CA3AF}
+  .map .zp{background:var(--purple)} .map .np{border-left-color:var(--purple)} .map .cp{background:var(--purple-soft);color:var(--purple)}
+  .map .zb{background:var(--blue)} .map .nb{border-left-color:var(--blue)} .map .cb{background:var(--blue-soft);color:var(--blue)}
+  .map .zt{background:var(--teal)} .map .nt{border-left-color:var(--teal)} .map .ct{background:var(--teal-soft);color:var(--teal)}
+  .map .za{background:var(--amber)} .map .na{border-left-color:var(--amber)} .map .ca{background:var(--amber-soft);color:var(--amber)}
+  .map .zr{background:var(--rose)}
+  .map .m-fb{background:var(--rose-soft);border:1px dashed var(--rose);border-radius:11px;padding:13px}
+  .map .m-fb-t{font-size:12px;font-weight:700;color:var(--rose);margin-bottom:10px}
+  .map .m-fb-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+  .map .m-fb-node{background:#fff;border:1px solid var(--rose);color:#9F1239;border-radius:7px;padding:6px 10px;font-size:12px}
+  .map .m-back{margin-top:9px;font-size:11.5px;color:#9F1239;font-weight:700}
+  .map .m-metrics{background:var(--blue-soft);border:1px dashed var(--blue);border-radius:11px;padding:13px}
+  .map .m-grid{display:flex;flex-wrap:wrap;gap:8px}
+  .map .m-item{background:#fff;border:1px solid var(--blue);border-radius:8px;padding:8px 10px;font-size:11.5px;flex:1 1 140px}
+  .map .m-item .m-layer{display:inline-block;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin-bottom:4px}
+  .map .le{background:#EDE4FF;color:var(--purple)} .map .lx{background:#CCFBF1;color:var(--teal)} .map .lb{background:#FEF3C7;color:var(--amber)}
+  .map .m-item .m-n{font-weight:700;display:block} .map .m-item .m-p{color:var(--muted)}
+
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:34px 20px 40px}
+  @media(max-width:820px){
+    .hero{padding:38px 0 32px} .hero h1{font-size:26px}
+    section{padding-top:30px} .sec-head h2{font-size:18px}
+    .card{padding:16px} .kv{grid-template-columns:100px 1fr}
+    .map .m-flow{flex-direction:column}
+    .map .m-arrow{height:20px;flex:0 0 20px}
+    .map .m-arrow:before{border-left:6px solid transparent;border-right:6px solid transparent;
+      border-top:9px solid #9CA3AF;border-bottom:0}
+    .map .m-zb{flex-direction:row;flex-wrap:wrap} .map .m-node{flex:1 1 130px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker" id="kicker">AI 产品经理作品集 · 项目 01</span>
+    <h1 id="title">离散制造 MES 平台</h1>
+    <p class="sub" id="subtitle">面向 50–500 人离散制造车间的轻量化执行系统：把 ERP 工单落到工位，管人管机管料，让工单进度、节拍与异常分钟级可见。</p>
+    <div class="hero-actions">
+      <a class="demo-cta" href="./demo/index.html" target="_blank" rel="noopener"><span class="arw">▶</span> 打开可点击 Demo（四端完整版）</a>
+      <span class="hero-note">Demo 含角色门户 · PC 后台 · 车间大屏 · 工位端 · 移动 H5</span>
+    </div>
+    <div class="legend">
+      <span>证据标注</span>
+      <span>[真实] 有数据/日志</span><span>[仿真] 样例集跑分</span>
+      <span>[估算] 行业基准推算</span><span>[假设] 待确认</span>
+    </div>
+  </div>
+</header>
+
+<nav><div class="wrap" id="nav"></div></nav>
+
+<main class="wrap">
+  <section id="s1"><div class="sec-head"><div class="sec-no">1</div><div><h2>项目概览</h2><div class="en">Overview &amp; Self-check</div></div></div><div id="b1"></div></section>
+  <section id="s2"><div class="sec-head"><div class="sec-no">2</div><div><h2>作品设计文档</h2><div class="en">Design Doc</div></div></div><div id="b2"></div></section>
+  <section id="s3"><div class="sec-head"><div class="sec-no">3</div><div><h2>可审阅 PRD</h2><div class="en">PRD</div></div></div><div id="b3"></div></section>
+  <section id="s4"><div class="sec-head"><div class="sec-no">4</div><div><h2>综合方案图</h2><div class="en">Solution Map</div></div></div><div class="card map" id="map"></div></section>
+  <section id="s5"><div class="sec-head"><div class="sec-no">5</div><div><h2>评测方案</h2><div class="en">Evaluation</div></div></div><div id="b5"></div></section>
+</main>
+
+<footer>AI 产品经理作品集 · 单文件页面，可离线打开 · 证据分级：真实 / 仿真 / 估算 / 假设</footer>
+
+<script>
+/* ===== 项目内容配置 ===== */
+const CONFIG = {
+  kicker: "AI 产品经理作品集 · 项目 01",
+  title: "离散制造 MES 平台",
+  subtitle: "面向 50–500 人离散制造车间的轻量化执行系统：把 ERP 工单落到工位，管人管机管料，让工单进度、节拍与异常分钟级可见。",
+  nav: [
+    {id:"s1", label:"项目概览"}, {id:"s2", label:"设计文档"}, {id:"s3", label:"PRD"},
+    {id:"s4", label:"方案图"}, {id:"s5", label:"评测方案"}
+  ],
+
+  b1: [
+    {type:"callout", tone:"tip", text:"本页为项目 01 的可审阅材料：现有资产盘点 → 设计文档 → 可审阅 PRD → 综合方案图 → 评测方案。可点击 Demo 见页头入口（相对路径 ./demo/index.html）。"},
+    {type:"h", text:"面试四问体检（补全前 → 本页补全后）"},
+    {type:"score", items:[
+      {q:"Q1 问题定义", score:"1 → 2 / 2", gap:"原 PRD 有 6 类目标角色与 7 项痛点，但痛点多为定性描述；本页补成可观察、可归因、带具体失败场景的段落。"},
+      {q:"Q2 指标体系", score:"1 → 2 / 2", gap:"原 PRD 有 6 项业务目标与 ≤1.5s / ≤5s 等非功能要求，但缺分母定义、采集方式与通过线；本页补三层指标定义卡。"},
+      {q:"Q3 评测方案", score:"0 → 2 / 2", gap:"原 PRD 无评测集、无通过线、无回归机制；本页新增可独立审阅的评测方案章节。"},
+      {q:"Q4 bad case", score:"0 → 2 / 2", gap:"原 PRD 有 R1–R5 风险清单，但无分类分级与迭代记录；本页补分类法、P0–P3 分级与 2 条完整迭代记录。"}
+    ]},
+    {type:"p", text:"评分口径：2 分=有正文且有证据；1 分=有提及但不可审；0 分=缺失。补全前分数基于用户提供的 V1.0 PRD 原文评估 [真实]；补全后分数指本页内容完备度 [真实]。"},
+    {type:"h", text:"现有资产盘点表"},
+    {type:"table", head:["资产项","状态","处理方式"], rows:[
+      ["目标用户与场景","已有：6 类角色 + 单元式多品种小批量场景 [真实]","保留，补触发条件、使用频率与决策权"],
+      ["痛点","已有但薄弱：7 项定性痛点，如 T+1 报工、翻纸质追溯 [真实]","深化为带具体失败画面的可归因段落"],
+      ["方案与功能","已有：15 PC + 2 大屏 + 6 工位 + 2 H5 原型清单 [真实]","保留，明确 MVP 边界与不做什么"],
+      ["可点击 Demo","已有：四端单页应用、8 张工单、5 个 Cell、报工与 Andon 闭环可操作 [真实]","作为作品证据；数据为演示样例，不冒充生产数据"],
+      ["技术选型","缺失：原 PRD 无 AI 能力选型章节 [真实]","新增四类选型对比；诚实标注本项目以确定性流程为主、AI 为增量假设"],
+      ["指标体系","薄弱：有目标与性能要求，无口径/分母/采集方式 [真实]","补三层指标定义卡，与评测章一一对应"],
+      ["评测与 bad case","缺失：原 PRD 无评测集、通过线、迭代记录 [真实]","新增评测方案独立章节"],
+      ["矛盾点","原 PRD 明确不做 QMS/EAM/WMS/APS，但协同章又要求与其对接 [真实]","界定为「不自建、只接口」，AI 增量不越界"]
+    ]},
+    {type:"h", text:"补全路线图（按投入产出比排序）"},
+    {type:"p", text:"1. 补 Q1 痛点场景化与 Q2 指标口径（成本最低、最常被问）→ 2. 补 Q4 bad case 分类与迭代闭环 → 3. 做 Q3 完整评测方案（评测集 / 三档通过线 / 回归）。四步产出全部汇入本页五个板块。"}
+  ],
+
+  b2: [
+    {type:"h", text:"背景与痛点"},
+    {type:"p", text:"【车间主任】在【多品种小批量、插单频繁的单元式车间】要在【日清会前说清每张工单到哪道工序、谁在做、异常卡在哪】；现在靠【纸质派工单 + 下班统一填 Excel 报工】；会出现【报工数据滞后一天、异常靠人跑去喊、客诉时翻纸质单据才能追溯批次与操作人】；根因是【执行层没有把工单拆到工位并实时回写，责任链与时间戳散落在纸面】。[真实：来自 PRD 背景章节的 7 项问题]"},
+    {type:"p", text:"一个具体失败画面：计划员下午答复交期时，WO-2610-004 仍处于暂停状态，暂停原因是缺料，但补料单没有生成——系统里看不到「谁该被通知」，只能打电话逐个问。该画面由 Demo 内 8 张工单与 5 条异常记录构造 [仿真]，对应 PRD 中「异常靠人跑去喊、响应慢」的痛点 [真实]。"},
+    {type:"p", text:"可观察证据：① 报工方式=下班填表 → 数据延迟以天计 [真实：PRD 描述]；② 追溯载体=纸质工单 → 客诉追溯需人工翻查 [真实]；③ 异常通知=人跑过去喊 → 无响应计时 [真实]。行业实施周期对比：头部 MES 动辄百万、实施半年 [估算：基于 PRD 背景章的表述，需真实报价单验证]。"},
+    {type:"h", text:"目标用户与场景"},
+    {type:"table", head:["角色","类型","经验水平","使用频率","决策权","触发场景"], rows:[
+      ["车间主任","主用户","熟悉车间但非 IT","每日多次","可派工、可升级异常","日清会前看达成率与异常；插单需调度"],
+      ["班组长","主用户","熟练工出身","每班次多次","可派工、复核报工","给工位派任务；审核超差报工"],
+      ["工位操作工","主用户","数字化接受度参差","每道工序","可报工、可呼叫","扫码开工/完工；缺料或设备异常时呼叫"],
+      ["计划员 / PMC","次用户","熟悉 ERP","按需","可确认插单影响","答复交期、评估插单对在制工单影响"],
+      ["工艺工程师","次用户","工艺背景","每周","可改工艺路线与 SOP","维护工时、换型时间、作业指导"],
+      ["厂领导","次用户","看结果","每周/月度","只读","看车间大屏、交期达成与异常总览"]
+    ]},
+    {type:"h", text:"方案与 MVP 边界"},
+    {type:"p", text:"产品形态：Web 单页应用，一套数据层驱动四种终端视图——PC 管理后台、16:9 车间大屏、工位平板/PDA、移动 H5。[真实：Demo 已实现]"},
+    {type:"p", text:"核心功能主路径（输入 → 处理 → 输出）：① ERP 工单号/数量/交期 → 按工艺路线拆解并派到 Cell → 工位任务队列；② 扫码 + 合格/不良/报废数 → 状态机推进与工时记录 → 工单进度分钟级更新 [真实]；③ 三类异常大按钮 → 分级推送与响应计时 → 异常台账与帕累托 [真实]；④ 序列号/批次 → 串联工序、人员、设备、关键尺寸 → 正反向追溯 [真实：Demo 内 12 条序列号样例]；⑤ 完工报工 → 入库过账 → 回写 ERP [真实：Demo 内 1 张工单完成回写演示]。"},
+    {type:"p", text:"MVP 不做（明确边界）：不做 APS 高级排产、不自建 QMS 质量判定、不自建 EAM 维修工单、不自建 WMS 库存、不承诺全设备 PLC 自动采集；质量与设备只做接口上报与状态接收。[真实：沿用 PRD 边界说明]"},
+    {type:"callout", tone:"warn", text:"诚实声明：现有 Demo 是确定性业务系统，不含大模型推理。下方 AI 选型是面向下一期的增量设计提案——凡未被 Demo 实现的能力均标注 [假设] 或 [仿真]，不把设计写成已落地效果。"},
+    {type:"h", text:"技术选型（RAG / Agent / 工作流 / MCP）"},
+    {type:"cards", color:"purple", items:[
+      {tag:"主选型 · 已落地", title:"工作流（确定性状态机）", body:"选它：工单状态机、转序、Andon 升级都是可枚举的固定步骤，且涉及报工数量与入库，必须可复现、可审计。否决了 Agent：车间执行不允许模型自主决定跳步或改数量，路径不确定会破坏追溯链。边界：当插单影响需跨多个在制工单权衡时，纯工作流不够灵活，需人工确认或升级为建议型能力。[真实：Demo 状态机已实现]"},
+      {tag:"增量假设", title:"RAG · E-SOP 与异常处置问答", body:"选它：SOP、工艺路线、历史异常台账是私有且常更新的知识，答案需给出处（版本号），符合「外挂可更新知识 + 可溯源」。否决了微调：知识每月随工艺版本更新，微调成本高且无法给出版本化出处。边界：SOP 未电子化或图片质量差时检索不可靠，需降级为原文列表。[假设：下一期能力，Demo 未实现]"},
+      {tag:"已否决", title:"Agent · 报工/派工自主决策", body:"否决：派工与报工的每一步都已由工艺路线和班组规则定义，属于强约束流程；引入自主规划会放大误操作风险（错误数量直接进绩效与 ERP）。若未来要做「插单影响评估助手」，也只输出建议而非自动重排，且必须经计划员确认。[真实：基于 PRD 风险 R1/R3 的权衡]"},
+      {tag:"增量假设", title:"MCP · ERP/QMS/EAM 对接标准化", body:"选它：需对接用友/金蝶/鼎捷三类 ERP 及 QMS/EAM/WMS，接口协议各异，用标准工具协议可复用连接层。否决了为每家客户写定制接口：实施周期要求 ≤4 周，定制接口会拖慢交付。边界：客户 ERP 无开放 API 时仍需走中间表，不能承诺全量直连。[假设：架构提案；真实约束见 PRD 风险 R4]"}
+    ]},
+    {type:"h", text:"指标体系（效果 / 体验 / 业务，与评测方案一一对应）"},
+    {type:"table", head:["指标","层","定义","口径（分子/分母/范围）","目标值","采集方式","坏例判定"], rows:[
+      ["工单状态准确率","效果","系统状态与实际工序进度一致","一致工单数 / 抽样工单数；范围=当日全部在制工单","≥ 95% [仿真]","人工抽样比对 + 报工日志","状态显示完工但末道工序无报工记录"],
+      ["追溯链路完整率","效果","序列号可反查到人/机/料/工时","字段齐全的序列号数 / 抽检序列号数；范围=关键件抽样","100% [仿真]","Demo 追溯查询 + 人工核对","任一环节缺操作人、设备或批次"],
+      ["报工操作响应时长","体验","扫码提交到进度更新可见","P95 耗时；范围=工位端提交事件","≤ 1.5s [假设：PRD 非功能要求]","前端埋点 + 本地计时","P95 > 1.5s 或出现重复提交"],
+      ["Andon 首次响应时长","体验","呼叫到责任人接单的时间","P50 / P90；范围=全部呼叫事件","P50 ≤ 5min [仿真]","响应计时日志","超升级阈值仍未响应"],
+      ["异常平均消除时长","业务","呼叫到异常关闭的时长","均值；范围=当日异常台账","较旧流程下降 30% [估算]","异常台账","停线未计入日报"],
+      ["计划达成率","业务","当日实际产出 / 计划产出","今日完成合格数 / 今日计划数；范围=当日工单","≥ 90% [仿真]","Demo 看板聚合","报工未回写导致达成率虚低"]
+    ]},
+    {type:"h", text:"价值与边界"},
+    {type:"kv", items:[
+      {k:"增量价值", v:"旧方案下班填 Excel，进度数据以天为单位滞后 [真实：PRD 背景]；Demo 中工位报工后进度、节拍、异常即时刷新 [真实]，把数据新鲜度从 T+1 提升到分钟级。以 8 张工单、5 个 Cell 的演示集验证闭环 [仿真]。"},
+      {k:"适用边界", v:"适合已上 ERP、单元式生产、多品种小批量、有节拍要求的 50–500 人离散厂；不适合无工艺路线基础数据、全流程自动化设备联网、或需要完整质量/设备/仓储模块的场景 [真实：沿用 PRD 定位与风险 R2/R5]。"},
+      {k:"风险与责任", v:"报工数量、入库过账涉及绩效与财务，必须保留人工确认与操作日志 [真实]；异常分级推送涉及责任人，需可配置且可追溯；员工产出数据用于绩效时需按企业制度授权，不越权开放 [假设：合规要求待法务确认]。"}
+    ]}
+  ],
+
+  b3: [
+    {type:"p", text:"在用户提供的 V1.0 PRD（产品概述、业务架构、核心功能、协同接口、业务流程、非功能需求、风险、原型清单）基础上，补齐 AI 产品特有的 7 个章节。五类内容均有正文落位：产品逻辑见「边界与责任」与下文说明；核心流程见「人工确认节点」前的流程段；AI 组件见「模型选型与理由」；人工确认见第 4 章；异常兜底见第 3 章；并与板块 4 综合方案图逐项对照。"},
+    {type:"details", title:"1. 模型选型与理由", open:true, blocks:[
+      {type:"p", text:"本期主链路采用确定性工作流（状态机 + 规则引擎），因为报工、转序、入库是不可逆或强关联绩效的操作，必须可复现可审计 [真实：Demo 已实现]。下一期增量若引入智能能力，按能力匹配选择：E-SOP/异常处置问答选 RAG（知识私有、常更新、需版本出处）；跨系统对接选 MCP（三类 ERP + QMS/EAM 接口复用）；不选用 Agent 做派工或报工决策，避免自主规划改写关键数据 [假设]。"},
+      {type:"p", text:"被否决方案及理由：① 通用大模型直接生成报工数量——数量来自现场实物，模型无感知依据，且错误会进绩效与 ERP；② 微调领域模型——工艺知识按月变更，微调无法提供版本化出处，实施周期也不满足 ≤4 周；③ 全设备 PLC 采集——客户设备成熟度参差，PRD 风险 R5 已明确不承诺全量联网 [真实]。"},
+      {type:"p", text:"调整条件 [假设]：若试点客户 SOP 电子化率 ≥80% 且月均更新 ≤2 次，可启动 RAG 原型；若 SOP 更新频繁但检索命中率低，则退回原文列表 + 版本号手动选择，不强行上模型。"}
+    ]},
+    {type:"details", title:"2. Prompt / 知识库策略（增量提案）", blocks:[
+      {type:"p", text:"知识来源：工艺路线（工序顺序/标准工时/换型时间）、E-SOP 文档与图片、异常处置规则表、历史异常台账。每条知识带 product_code、routing_version、effective_date 三个字段，检索时按当前工单的版本过滤，保证「按当时版本查询」的追溯要求 [真实：PRD 版本管理要求；假设：检索实现方式]。知识更新责任人为工艺工程师，变更需留版本记录。"},
+      {type:"p", text:"Prompt 设计（占位符示例，不含真实密钥）：角色=车间作业助理；任务=仅依据提供的 SOP 片段回答操作问题；约束=不得推断未在片段中出现的关键尺寸或工时，遇到无依据时输出「知识库无对应版本，请查看原文」；输出格式={\"...\"} 结构化字段；few-shot=3 条正常 + 1 条无依据样例；防注入=用户输入与系统指令分区，禁止执行用户提出的「忽略上文」类指令 [假设：下一期设计]。"}
+    ]},
+    {type:"details", title:"3. 评测指标与失败兜底", blocks:[
+      {type:"p", text:"效果指标：工单状态准确率、追溯链路完整率（定义与口径见板块 2 / 5）；体验指标：报工操作响应时长、Andon 首次响应时长。四类失败兜底：① 检索无命中 → 返回原文列表与版本选择，不生成答案；② 状态与报工不一致 → 以报工日志为准并冻结过账，提示班组长复核；③ 追溯字段缺失 → 标记「链路不完整」并列出缺失环节，不伪造数据；④ 弱网 → 工位端本地缓存报工，恢复网络后续传（PRD 非功能要求，Demo 以离线状态按钮演示）[真实/假设混合，逐条已标注]。"},
+      {type:"p", text:"bad case 分类：事实错误 / 漏召 / 误召 / 状态不一致 / 延迟超时 / 越权访问。完整分类、分级与迭代记录见板块 5。"}
+    ]},
+    {type:"details", title:"4. 人工确认节点", blocks:[
+      {type:"p", text:"三个必须人工确认的节点：① 报工数量复核——合格/不良/报废数提交后由班组长在超差时复核，决策权归班组长，超时 30 分钟升级车间主任；② 插单影响确认——计划员确认对在制工单交期的影响后才重排工位任务；③ 完工入库过账——回写 ERP 前必须确认，避免错误库存 [真实：沿用 PRD 工单管理与异常升级要求]。"},
+      {type:"p", text:"不通过时的回流路径：复核不通过 → 工单回到「在制」并保留原报工记录作为审计痕迹 → 工位重新提交；不得直接删除或修改历史记录。每个确认节点写操作日志（操作人、时间、前后状态）[真实：Demo 时间线保留完整轨迹]。"}
+    ]},
+    {type:"details", title:"5. 成本与延迟", blocks:[
+      {type:"p", text:"本期确定性链路无模型调用成本，报工为本地状态更新，P95 目标 ≤1.5s [假设：PRD 非功能要求，需在真实网络压测]。增量 RAG 若引入：单次问答延迟量级 1–3s [估算：行业通用区间]，应放在工位端「查 SOP」的非主路径，不阻塞报工；高频 SOP 问题做缓存，复杂问题才走检索。成本与效果权衡：主路径不用模型，把预算放在知识质量与接口稳定性上 [假设]。"}
+    ]},
+    {type:"details", title:"6. 数据飞轮", blocks:[
+      {type:"p", text:"闭环路径：班组长复核与异常台账 → 抽取 bad case → 标注后进入评测集 → 回归验证 → 发版 → 新日志回流。冷启动阶段无真实日志，采用 PRD 场景构造的首版评测集（规模与构成见板块 5）[仿真]，并设定「试点工厂运行 2 周后用真实日志替换 30% 仿真样例」的演进计划 [假设]。"}
+    ]},
+    {type:"details", title:"7. 边界与责任", blocks:[
+      {type:"p", text:"AI 不做：不自动生成或修改报工数量、不做质量合格判定（由 QMS 或人工检验负责）、不自动重排插单、不承诺交期、不越权访问其他班组绩效数据 [真实：沿用 PRD 边界 R1 与人工确认节点]。"},
+      {type:"p", text:"产品逻辑一句话：ERP 下发工单 → 工艺路线拆解 → 派到 Cell/工位 → 扫码开工与报工 → 转序与异常处置 → 末道完工回写 ERP，全程状态、人员、设备、时间可追溯 [真实：Demo 主路径]。责任划分：执行数据准确性由操作工与班组长负责，系统提供日志与追溯能力，不对因基础数据错误（如工时虚标）导致的决策偏差负责 [真实：PRD 风险 R2]。"}
+    ]}
+  ],
+
+  b5: [
+    {type:"h", text:"1. 评测集设计"},
+    {type:"table", head:["项","内容"], rows:[
+      ["样例来源","首版 80 条：① PRD 中的 7 类痛点与 8 张演示工单派生 40 条 [仿真，基于真实文档]；② 5 个 Cell、6 类角色、3 类异常组合构造 24 条边界/对抗样例 [仿真]；③ 已知失败场景回灌 16 条 [仿真]。无生产日志，不写成真实数据。"],
+      ["规模与构成","正常 40 / 边界 16 / 对抗 12 / 失败 12，合计 80 条 [仿真]。覆盖状态机 7 态、三类异常、报工/转序/追溯/入库四条主路径。"],
+      ["标注方式","由项目作者按「期望状态、期望数量、是否高风险、证据字段」四字段标注；高风险样例额外标注需人工确认的节点 [仿真]。"],
+      ["一致性校验","抽取 20%（16 条）二次复核，期望状态与证据字段一致率作为口径；分歧样例逐条对齐 PRD 原文后重标。目标一致率 ≥90% [仿真；尚未开展双标注，不报告 kappa]。"]
+    ]},
+    {type:"table", head:["维度","条数","样例说明"], rows:[
+      ["正常","40","扫码开工 → 报工 100 件合格 2 件不良 → 转序 → 状态正确推进 [仿真]"],
+      ["边界","16","报工数为 0、等于剩余量、超过剩余量、暂停后续作、序列号不存在 [仿真]"],
+      ["对抗","12","重复提交同一报工、越权查看其他班组绩效、伪造交期字段 [仿真]"],
+      ["失败（历史 bad case 回灌）","12","状态显示完工但无报工记录、追溯缺设备字段、弱网重复上报 [仿真]"]
+    ]},
+    {type:"h", text:"2. 指标定义表（与板块 2、3、4 一一对应）"},
+    {type:"table", head:["指标","层","口径（分子/分母/范围）","采集方式","坏例判定","目标值","首版实测"], rows:[
+      ["工单状态准确率","效果","一致工单数/抽样工单数；当日全部在制工单","人工抽样 + 报工日志","完工但无末道报工","≥95% [仿真]","80 条样例中 76 条一致 = 95% [仿真]"],
+      ["追溯链路完整率","效果","字段齐全序列号数/抽检数；关键件抽样","Demo 追溯查询 + 核对","缺人/机/料任一字段","100% [仿真]","12 条样例 11 条齐全 = 92% [仿真]"],
+      ["报工操作响应时长","体验","P95；工位提交事件","前端计时","P95 >1.5s 或重复提交","≤1.5s [假设]","本地演示 0.3–0.9s，未做真实网络压测 [仿真]"],
+      ["Andon 首次响应时长","体验","呼叫→接单 P50/P90；全部呼叫","响应计时日志","超时未升级","P50 ≤5min [仿真]","5 条演示记录中位 6min [仿真]"],
+      ["异常平均消除时长","业务","呼叫→关闭均值；当日台账","异常台账","停线未计入日报","较旧流程降 30% [估算]","演示集均值 48min，无旧流程基线 [仿真]"],
+      ["计划达成率","业务","合格完成数/计划数；当日工单","看板聚合","未回写导致虚低","≥90% [仿真]","演示集 34%（8 张工单、多为在制）[仿真]"]
+    ]},
+    {type:"p", text:"口径说明：首版实测值是在 80 条构造样例与 Demo 演示数据上跑出的结果 [仿真]，用于验证评测方案可执行，不代表任何真实工厂效果。计划达成率演示集仅 34%，因为演示数据中 1 张完工、5 张在制/暂停/待派工——该数值被如实保留，未调整为好看的数字 [真实：Demo 数据状态]。"},
+    {type:"h", text:"3. 通过线（三档 + 置信度 + 合成规则）"},
+    {type:"table", head:["指标","阻断线（不可上线）","达标线（及格）","优秀线（可展示）","首版结论"], rows:[
+      ["工单状态准确率","< 90%","≥ 95%","≥ 99%","95% 达标未优秀 [仿真]"],
+      ["追溯链路完整率","< 95%","= 100%","= 100% 且含自检字段","92% 未达标 → 阻断 [仿真]"],
+      ["报工操作响应时长","P95 > 3s","P95 ≤ 1.5s","P95 ≤ 0.8s","本地达标，待真实压测 [仿真]"],
+      ["Andon 首次响应时长","P50 > 15min","P50 ≤ 10min","P50 ≤ 5min","6min 达标未优秀 [仿真]"]
+    ]},
+    {type:"callout", tone:"warn", text:"置信度说明：80 条构造样例下，比例指标约 ±7% 的抽样波动不显著；「95% vs 99%」的差异不能据此下结论。三档线是设计与业务约束推导的初始值 [假设]，需用试点工厂 2 周真实日志替换 30% 样例后重新定线。"},
+    {type:"kv", items:[
+      {k:"合成规则", v:"一票否决制：任一效果指标低于阻断线即不可上线（追溯完整率 92% < 95% 当前阻断）；体验指标只影响评级不阻断。理由：追溯与报工数据直接关联客诉举证与绩效，错误代价高于延迟。[假设：规则待业务确认]"}
+    ]},
+    {type:"h", text:"4. 回归方案"},
+    {type:"table", head:["变更类型","回归重点","是否触发","通过标准"], rows:[
+      ["改状态机 / 工作流","7 态流转 + 暂停续作 + 转序分支","必触发","黄金集全通过"],
+      ["改数量校验规则","边界 16 条 + 重复提交对抗 12 条","必触发","无重复入账"],
+      ["改知识库版本（增量）","知识相关 case + 版本过滤","必触发","无旧版本答案"],
+      ["改报工/异常 UI","按钮可达性 + 响应时长 P95","必触发","P95 ≤ 1.5s"]
+    ]},
+    {type:"p", text:"回归集划分：固定黄金集 32 条（覆盖 4 个维度、版本化保存，每次回归必跑）+ 随机抽样集 24 条（从评测集随机抽取，防止过拟合黄金集）。频率：每次发版前全量跑；工作日内每日跑黄金集。不通过处理：先回滚到上一个通过版本，再定位修复并重跑；未复测通过不得发版 [仿真：方案设计]。"},
+    {type:"h", text:"5. bad case 迭代闭环"},
+    {type:"table", head:["类型","表现","常见归因","修复手段","验证方式"], rows:[
+      ["事实错误","追溯显示的设备与报工记录不一致","字段来源未对齐","统一取报工日志设备字段","复跑 12 条追溯 case"],
+      ["漏召 / 漏字段","序列号反查缺操作人或批次","采集时未强制校验","提交前校验必填字段","边界 16 条复测"],
+      ["状态不一致","显示完工但无末道报工","转序与报工顺序颠倒","完工状态仅在末道报工后写入","黄金集状态机用例"],
+      ["延迟超时","报工 P95 > 1.5s","重复提交 + 前端重渲染","按钮防抖 + 局部更新","压测 P95"],
+      ["越权访问","跨班组查看绩效","前端隐藏未做服务端校验","按角色过滤数据接口","对抗 12 条复测"]
+    ]},
+    {type:"table", head:["#","case 描述","分类","级别","归因（+依据）","修复动作","复测结果","入库回归集"], rows:[
+      ["1","工单 WO-2610-004 显示「在制」但关键尺寸自检字段为空，客户审厂时无法提供证据 [仿真]","漏字段","P1","归因于工位端自检录入非必填；依据：12 条追溯抽检中 1 条缺字段","将关键尺寸改为该工序完工前的必填项，未填不允许提交","同类 12 条 case 全部补齐，追溯完整率 92%→100% [仿真]","是（黄金集）"],
+      ["2","重复点击报工按钮导致同一工序数量被计入两次，计划达成率虚高 [仿真]","状态不一致","P0","归因于提交按钮无防抖且状态更新非原子；依据：对抗集中 12 条重复提交样例命中 3 条","提交后置灰按钮 + 以工单号+工序+时间戳做幂等键","对抗集 12/12 通过，无重复入账 [仿真]","是（黄金集 + 发版阻断）"]
+    ]},
+    {type:"p", text:"闭环完整性：两条记录均写清 case、分类分级、归因依据、修复动作、复测结果与是否入库；P0 案例进入发版阻断集。该闭环为方案设计演示 [仿真]，待试点真实 bad case 替换。"}
+  ],
+
+  map: {
+    title: "离散制造 MES 平台 · 综合方案图",
+    subtitle: "ERP 工单 → 工位执行 → 实时采集 → 异常处置 → 完工回写，全程人工确认与兜底回路",
+    zones: [
+      {name:"用户侧", color:"purple", nodes:[
+        {label:"工位扫码开工/报工\n（操作工）",chip:"入口"},
+        {label:"班组长派工/复核\n超差数量",chip:"人工"}
+      ]},
+      {name:"业务流程", color:"blue", nodes:[
+        {label:"ERP 工单接入\n→ 按工艺路线拆解",chip:"工作流"},
+        {label:"派工到 Cell\n→ 转序/暂停续作",chip:"工作流"},
+        {label:"完工报工\n→ 入库回写 ERP",chip:"输出"}
+      ]},
+      {name:"AI 组件", color:"teal", nodes:[
+        {label:"确定性状态机\n（本期主链路）",chip:"工作流"},
+        {label:"E-SOP 问答\n（下一期提案）",chip:"RAG·假设"},
+        {label:"ERP/QMS/EAM\n接口标准化",chip:"MCP·假设"}
+      ]},
+      {name:"人工确认", color:"amber", nodes:[
+        {label:"超差报工复核？",chip:"判断：是"},
+        {label:"计划员确认插单影响",chip:"人工"},
+        {label:"入库过账前确认",chip:"人工"}
+      ]}
+    ],
+    fallback: {
+      trigger:"触发：状态与报工不一致 / 追溯字段缺失 / 检索无命中 / 弱网重复上报",
+      nodes:["冻结过账","降级为原文列表","转班组长复核","本地缓存后续传"],
+      backTo:"回到「派工到 Cell → 转序/暂停续作」重新提交"
+    },
+    metrics: [
+      {layer:"effect", name:"工单状态准确率", point:"埋点：状态变更 + 报工日志"},
+      {layer:"effect", name:"追溯链路完整率", point:"埋点：序列号反查结果"},
+      {layer:"exp", name:"报工操作响应时长", point:"埋点：扫码提交→进度可见"},
+      {layer:"exp", name:"Andon 首次响应时长", point:"埋点：呼叫→接单"},
+      {layer:"biz", name:"计划达成率", point:"埋点：完工回写 ERP"}
+    ],
+    mermaid:[
+      "flowchart TD",
+      "  subgraph 用户侧",
+      "    A[工位扫码开工/报工] --> B[班组长派工/复核]",
+      "  end",
+      "  subgraph 业务流程",
+      "    B --> C[ERP 工单接入 → 工艺路线拆解]",
+      "    C --> D[派工到 Cell → 转序/暂停续作]",
+      "    D --> E[完工报工 → 入库回写 ERP]",
+      "  end",
+      "  subgraph AI组件",
+      "    C --> F{工作流状态机 / RAG 提案 / MCP 提案}",
+      "    F --> G[处理结果]",
+      "  end",
+      "  subgraph 人工确认",
+      "    G --> H{超差报工复核?}",
+      "    H -->|是| I[班组长复核] --> J[计划员确认插单] --> K[入库过账前确认] --> E",
+      "    H -->|否| E",
+      "  end",
+      "  subgraph 异常兜底",
+      "    G -.->|状态不一致/字段缺失/弱网| L[冻结过账/降级/转人工/缓存续传]",
+      "    L -.-> D",
+      "  end"
+    ].join("\n")
+  }
+};
+
+/* ===== 渲染逻辑 ===== */
+const evMap = {"[真实]":"ev-real","[仿真]":"ev-sim","[估算]":"ev-est","[假设]":"ev-hyp"};
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+function fmt(text){
+  let s = esc(text);
+  s = s.replace(/\[(真实|仿真|估算|假设)\]/g, m => '<span class="ev '+evMap[m]+'">'+m+'</span>');
+  return s.replace(/\n/g,"<br>");
+}
+function renderBlocks(blocks){
+  return blocks.map(b => {
+    switch(b.type){
+      case "h": return '<div class="h3">'+fmt(b.text)+'</div>';
+      case "p": return '<p class="p">'+fmt(b.text)+'</p>';
+      case "table":
+        return '<div class="tbl-wrap"><table><thead><tr>'+b.head.map(h=>'<th>'+fmt(h)+'</th>').join("")+
+          '</tr></thead><tbody>'+b.rows.map(r=>'<tr>'+r.map(c=>'<td>'+fmt(c)+'</td>').join("")+'</tr>').join("")+
+          '</tbody></table></div>';
+      case "cards":
+        return '<div class="cards">'+b.items.map(it=>
+          '<div class="mini '+(b.color||"blue")+'">'+(it.tag?'<span class="tag">'+fmt(it.tag)+'</span>':"")+
+          '<div class="t">'+fmt(it.title)+'</div><div class="b">'+fmt(it.body)+'</div></div>').join("")+'</div>';
+      case "kv":
+        return '<div class="kv">'+b.items.map(it=>'<div class="k">'+fmt(it.k)+'</div><div class="v">'+fmt(it.v)+'</div>').join("")+'</div>';
+      case "callout":
+        return '<div class="callout '+(b.tone==="warn"?"warn":"")+'">'+fmt(b.text)+'</div>';
+      case "score":
+        return '<div class="score-strip">'+b.items.map(it=>
+          '<div class="score"><div class="q">'+fmt(it.q)+'</div><div class="v">'+fmt(it.score)+'</div>'+
+          '<div class="g">'+fmt(it.gap)+'</div></div>').join("")+'</div>';
+      case "details":
+        return '<details '+(b.open?"open":"")+'><summary>'+fmt(b.title)+'</summary><div class="dbody">'+
+          renderBlocks(b.blocks||[])+'</div></details>';
+      default: return "";
+    }
+  }).join("");
+}
+document.getElementById("kicker").textContent = CONFIG.kicker;
+document.getElementById("title").textContent = CONFIG.title;
+document.getElementById("subtitle").textContent = CONFIG.subtitle;
+document.getElementById("nav").innerHTML = CONFIG.nav.map(n=>'<a href="#'+n.id+'">'+esc(n.label)+'</a>').join("");
+document.getElementById("b1").innerHTML = renderBlocks(CONFIG.b1);
+document.getElementById("b2").innerHTML = renderBlocks(CONFIG.b2);
+document.getElementById("b3").innerHTML = renderBlocks(CONFIG.b3);
+document.getElementById("b5").innerHTML = renderBlocks(CONFIG.b5);
+
+/* 综合方案图渲染 */
+(function(){
+  const m = CONFIG.map;
+  const zoneColor = p => ({purple:"zp",blue:"zb",teal:"zt",amber:"za"}[p]||"zb");
+  const nodeColor = p => ({purple:"np",blue:"nb",teal:"nt",amber:"na"}[p]||"nb");
+  const chipColor = p => ({purple:"cp",blue:"cb",teal:"ct",amber:"ca"}[p]||"cb");
+  const arrow = '<div class="m-arrow"></div>';
+  const el = document.getElementById("map");
+  el.innerHTML =
+    '<div class="m-legend">'+m.zones.map(z=>'<span><i class="'+zoneColor(z.color)+'"></i>'+esc(z.name)+'</span>').join("")+
+      '<span><i class="zr"></i>异常兜底</span><span><i class="zb"></i>指标埋点</span></div>'+
+    '<div class="m-panel"><div class="m-title">主流程（用户侧 → 业务流程 → AI 组件 → 人工确认）</div><div class="m-flow">'+
+      m.zones.map((z,i)=>(i?arrow:"")+'<div class="m-zone"><div class="m-zh '+zoneColor(z.color)+'">'+esc(z.name)+'</div>'+
+        '<div class="m-zb">'+z.nodes.map(n=>(n.chip?'<span class="m-chip '+chipColor(z.color)+'">'+esc(n.chip)+'</span><br>':"")+
+          '<div class="m-node '+nodeColor(z.color)+'">'+fmt(n.label)+'</div>').join("")+'</div></div>').join("")+
+      '</div></div>'+
+    '<div class="m-panel"><div class="m-title">异常兜底（最终回到主流程）</div><div class="m-fb">'+
+      '<div class="m-fb-t">'+fmt(m.fallback.trigger)+'</div><div class="m-fb-flow">'+
+      m.fallback.nodes.map((n,i)=>(i?arrow:"")+'<div class="m-fb-node">'+esc(n)+'</div>').join("")+'</div>'+
+      '<div class="m-back">↩ '+esc(m.fallback.backTo)+'</div></div></div>'+
+    '<div class="m-panel"><div class="m-title">指标埋点（效果 / 体验 / 业务，与板块 2、5 一一对应）</div>'+
+      '<div class="m-metrics"><div class="m-grid">'+m.metrics.map(x=>{
+        const lc={effect:"le",exp:"lx",biz:"lb"}[x.layer]||"lb";
+        const ll={effect:"效果",exp:"体验",biz:"业务"}[x.layer]||"指标";
+        return '<div class="m-item"><span class="m-layer '+lc+'">'+ll+'</span><span class="m-n">'+esc(x.name)+'</span>'+
+          '<span class="m-p">'+esc(x.point)+'</span></div>';
+      }).join("")+'</div></div></div>';
+})();
+</script>
+</body>
+</html>
